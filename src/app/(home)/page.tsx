@@ -3,12 +3,13 @@
 
 import Typography from "@mui/material/Typography";
 
-export const metadata = { title: 'Domov | ZoškaSnap'};
+export const metadata = { title: 'Domov | ZoskaSnap'}
 
 export default function Home() {
 
-  return (
+  return(
 
-    <Typography> Domovská stránka </Typography>
+      <Typography> Domovska stranka </Typography>
+
   );
 }

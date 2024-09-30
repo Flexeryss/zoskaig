@@ -4,13 +4,13 @@
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-export const metadata = { title: 'Domov | ZoškaSnap'};
+export const metadata = { title: 'O mne | ZoskaSnap'}
 
 export default function About() {
 
-  return (
+  return(
     <Container>
-        <Typography> Stránka o mne </Typography>
+      <Typography> Stranka o mne </Typography>
     </Container>
   );
 }

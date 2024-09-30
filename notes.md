@@ -27,4 +27,6 @@ vlavo hore v sourcecontrol davam nazov komitov a vsetko ovladam
 github – cloud ulozisko kde mozu pracovat na projekte viaceri, uklada to changes ako verzie a mozeme sa k nim vratit spat, moze sluzit aj ako portfolio
 vercel nam dal pomocou githubu stranku na web
 
+Prikaz na files strukturu:
+
 show structure - find first-time \( -name ".gitignore" -o -path "first-time/.next" -o -path "first-time/node_modules" -o -path "first-time/.git" \) -prune -o -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
