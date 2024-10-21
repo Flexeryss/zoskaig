@@ -1,17 +1,28 @@
 
-import { Container,Typography,Box} from "@mui/material/";
-import {Session} from "next-auth";
+// src/sections/AuthHomeView.tsx
 
-export const metadata = { title: 'Domov | ZoskaSnap' };
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+// import Box from "@mui/material/Box";
 
-export default function AuthHome() {
-  
-  
-    return (
+import { Session } from "next-auth";
+
+export default function AuthHomeView({ session }: { session: Session }) {
+
+  return (
     <Container>
-        <Typography>Domovska stranka -prihlaseny user</Typography>
-    </Container>
+      <Typography> Domovská stránka - prihlásený user</Typography>
+      <Typography variant="h4" sx={{ mb: 3 }}>
+        Vitajte, {session?.user?.name || "užívateľ"}!
+      </Typography>
 
-    
+
+      {/* <Box sx={{ mt: 2 }}>
+        <pre>{JSON.stringify(session, null, 2)}</pre>
+      </Box> */}
+    </Container>
   );
 }
+
+
+
