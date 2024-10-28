@@ -1,68 +1,77 @@
-"use client"; // Mark this component as a Client Component
 
-import * as React from 'react'; // Import React
-import BottomNavigation from '@mui/material/BottomNavigation'; // Material UI BottomNavigation
-import BottomNavigationAction from '@mui/material/BottomNavigationAction'; // Material UI BottomNavigationAction
-import HomeIcon from '@mui/icons-material/Home'; // Home icon
-import AddBoxIcon from '@mui/icons-material/AddBox'; // Add post icon
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // Profile icon
-import LoginIcon from '@mui/icons-material/Login'; // Sign In icon
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration'; // Sign Up icon
-import { useState } from 'react'; // React hook for state management
-import Link from 'next/link'; // Link component from Next.js
+// /src/components/Navbar.tsx
 
-const NavBar = () => {
-  const [value, setValue] = useState('home'); // State to manage the active bottom navigation item
+"use client";
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue); // Update the active navigation item
+import * as React from 'react';
+import { BottomNavigation, BottomNavigationAction, Box, Avatar } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import LoginIcon from '@mui/icons-material/Login';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useRouter } from 'next/navigation';
+import { useSession } from "next-auth/react";
+
+export default function Navbar() {
+  const [value, setValue] = React.useState('/');
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
+  const handleNavigation = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+    router.push(newValue);
   };
 
+  // Non-authenticated navigation paths
+  const nonAuthPaths = [
+    { label: "Domov", value: "/", icon: <HomeIcon /> },
+    { label: "Prispevky", value: "/prispevok", icon: <AddCircleIcon /> },
+    { label: "Registrácia", value: "/auth/registracia", icon: <AppRegistrationIcon /> },
+    { label: "Prihlásenie", value: "/auth/prihlasenie", icon: <LoginIcon /> }
+  ];
+
+  // Authenticated navigation paths
+  const authPaths = [
+    { label: "Domov", value: "/", icon: <HomeIcon /> },
+    { label: "Hľadať", value: "/hladat", icon: <SearchIcon /> },
+    { label: "Pridať", value: "/prispevok", icon: <AddCircleIcon /> },
+    {
+      label: "Profil",
+      value: "/profil",
+      icon: session?.user?.image ? (
+        <Avatar 
+          alt={session?.user?.name || "User"} 
+          src={session?.user?.image || undefined} 
+        />
+      ) : (
+        <Avatar>{session?.user?.name?.charAt(0) || "U"}</Avatar>
+      )
+    },
+    { label: "Odhlásiť", value: "/auth/odhlasenie", icon: <LogoutIcon /> },
+  ];
+
+  // Decide which paths to use based on authentication status
+  const navigationPaths = status === "authenticated" ? authPaths : nonAuthPaths;
+
   return (
-    <BottomNavigation
-      sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }} // Fix position at the bottom
-      value={value} // Active navigation value
-      onChange={handleChange} // Change handler for navigation
-    >
-      <BottomNavigationAction
-        label="Home"
-        value="home" // Value for Home
-        icon={<HomeIcon />} // Home icon
-        component={Link} // Use Next.js Link for navigation
-        href="/" // Home page link
-      />
-      <BottomNavigationAction
-        label="Add"
-        value="add" // Value for Add
-        icon={<AddBoxIcon />} // Add post icon
-        component={Link} // Use Next.js Link for navigation
-        href="/pridat" // Add post page link
-      />
-      <BottomNavigationAction
-        label="Profile"
-        value="profile" // Value for Profile
-        icon={<AccountCircleIcon />} // Profile icon
-        component={Link} // Use Next.js Link for navigation
-        href="/profil" // Profile page link
-      />
-      <BottomNavigationAction
-        label="Sign In"
-        value="sign-in" // Value for Sign In
-        icon={<LoginIcon />} // Sign In icon
-        component={Link} // Use Next.js Link for navigation
-        href="/auth/prihlasenie" // Sign In page link
-      />
-      <BottomNavigationAction
-        label="Sign Up"
-        value="sign-up" // Value for Sign Up
-        icon={<AppRegistrationIcon />} // Sign Up icon
-        component={Link} // Use Next.js Link for navigation
-        href="/auth/registracia" // Sign Up page link
-      />
-    </BottomNavigation>
+    <Box sx={{ width: '100%', position: 'fixed', bottom: 0 }}>
+      <BottomNavigation
+        showLabels
+        value={value}
+        onChange={handleNavigation}
+      >
+        {navigationPaths.map((path) => (
+          <BottomNavigationAction
+            key={path.value}
+            label={path.label}
+            value={path.value}
+            icon={path.icon}
+          />
+        ))}
+      </BottomNavigation>
+    </Box>
   );
-};
-
-export default NavBar; // Export the NavBar component
-
+}
 

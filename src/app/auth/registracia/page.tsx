@@ -1,22 +1,9 @@
-// src/app/auth/layout.tsx
+// src/app/auth/registracia/page.tsx
 
-import { Box } from '@mui/material';
+import SignUpView from "@/sections/SignUpView";
 
-export default function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <Box
-      sx={{
-        minHeight: '100vh', // Ensure it takes up the full viewport height
-        display: 'flex',
-        justifyContent: 'center', // Horizontally center
-        alignItems: 'center', // Vertically center
-      }}
-    >
-      {children}
-    </Box>
-  );
+export const metadata = { title: "Registrácia užívateľa | ZoškaSnap" };
+
+export default function SignUpPage() {
+  return <SignUpView />;
 }
