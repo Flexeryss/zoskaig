@@ -7,3 +7,4 @@ export const metadata = { title: "Registrácia užívateľa | ZoškaSnap" };
 export default function SignUpPage() {
   return <SignUpView />;
 }
+
