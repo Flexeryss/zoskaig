@@ -76,3 +76,5 @@ model Authenticator {
  
   @@id([userId, credentialID])
 }
+
+
