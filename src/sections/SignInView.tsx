@@ -2,15 +2,16 @@
 
 "use client";
 
-import {
-    Button,
-    Container,
-    Typography,
-  } from "@mui/material";
-  import { signIn } from "next-auth/react";
-  import GoogleIcon from "@mui/icons-material/Google";
+import { Button, Container, Typography } from "@mui/material";
+import { signIn } from "next-auth/react";
+import GoogleIcon from "@mui/icons-material/Google";
+import Link from "next/link";
 
 export default function SignInView() {
+  const handleSignInWithGoogle = async () => {
+    await signIn("google");
+  };
+
   return (
     <Container
       maxWidth="xs"
@@ -25,26 +26,39 @@ export default function SignInView() {
         borderRadius: 2,
       }}
     >
-      {/* Logo / Title */}
+      {/* Title */}
       <Typography variant="h5" sx={{ mb: 3 }}>
         Prihlásenie
       </Typography>
 
-      {/* Google Sign Up */}
+      {/* Google Sign-In Button */}
       <Button
-        variant="outlined"
+        variant="contained"
+        color="primary"
         fullWidth
-        startIcon={<GoogleIcon />}
-        onClick={() => signIn("google")}
-        sx={{ mb: 1 }}
+        onClick={handleSignInWithGoogle}
+        sx={{
+          mb: 2,
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
-        Prihlásiť sa účtom Google
+        <GoogleIcon sx={{ mr: 1 }} />
+        Prihlásiť sa pomocou Google
       </Button>
 
-
+      {/* Message for users who don't have an account */}
+      <Typography variant="body2" sx={{ mt: 2 }}>
+        Nemáte ešte účet?{" "}
+        <Link href="/auth/registracia" style={{ textDecoration: "none", color: "#1976d2" }}>
+          Chcete ísť na Registráciu?
+        </Link>
+      </Typography>
     </Container>
   );
 }
+
+
 
 
       // {/* Facebook Sign Up */}

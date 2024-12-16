@@ -1,16 +1,32 @@
 // src/sections/SignUpView.tsx
 
+
 "use client";
 
-import {
-  Button,
-  Container,
-  Typography,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Button, Container, Typography, Checkbox, FormControlLabel } from "@mui/material";
 import { signIn } from "next-auth/react";
 import GoogleIcon from "@mui/icons-material/Google";
+import Link from "next/link";
 
 export default function SignUpView() {
+  const [isGdprAccepted, setIsGdprAccepted] = useState(false);
+  const [showError, setShowError] = useState(false);
+
+  const handleSignUpWithGoogle = async () => {
+    if (!isGdprAccepted) {
+      setShowError(true);
+      return;
+    }
+
+    // Proceed with Google sign-up logic here
+    await signIn("google");
+  };
+
+  const handleGdprChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsGdprAccepted(event.target.checked);
+  };
+
   return (
     <Container
       maxWidth="xs"
@@ -25,31 +41,62 @@ export default function SignUpView() {
         borderRadius: 2,
       }}
     >
-      {/* Logo / Title */}
+      {/* Title */}
       <Typography variant="h5" sx={{ mb: 3 }}>
         Registrácia
       </Typography>
 
-      {/* Sign-in link */}
-      <Typography variant="body1" sx={{ mb: 6 }}>
-        Už máte účet? <a href="/auth/prihlasenie">Prihláste sa</a>
-      </Typography>
-
-      {/* Google Sign Up */}
+      {/* Google Sign-Up Button */}
       <Button
-        variant="outlined"
+        variant="contained"
+        color="primary"
         fullWidth
-        startIcon={<GoogleIcon />}
-        onClick={() => signIn("google")}
-        sx={{ mb: 1 }}
+        onClick={handleSignUpWithGoogle}
+        sx={{
+          mb: 2,
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
-        Registrovať sa účtom Google
+        <GoogleIcon sx={{ mr: 1 }} />
+        Registrovať sa pomocou Google
       </Button>
 
+      {/* GDPR Checkbox */}
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={isGdprAccepted}
+            onChange={handleGdprChange}
+            name="gdpr"
+            color="primary"
+          />
+        }
+        label="Súhlasím s podmienkami GDPR"
+      />
 
+      {/* Error Message for Missing GDPR Agreement */}
+      {showError && !isGdprAccepted && (
+        <Typography color="error" variant="body2" sx={{ mt: 2 }}>
+          Musíš potvrdiť GDPR podmienky
+        </Typography>
+      )}
+
+      {/* Message for users with an existing account */}
+      <Typography variant="body2" sx={{ mt: 2 }}>
+        Už máte účet?{" "}
+        <Link href="/auth/prihlasenie" style={{ textDecoration: "none", color: "#1976d2" }}>
+          Chcete ísť na Prihlásenie?
+        </Link>
+      </Typography>
     </Container>
   );
 }
+
+
+
+
+
 
 
       // {/* Facebook Sign Up */}
