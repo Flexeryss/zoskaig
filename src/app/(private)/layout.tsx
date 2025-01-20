@@ -1,3 +1,5 @@
+//src/app/(private)/layout.tsx
+
 import React from "react";  
  
  
