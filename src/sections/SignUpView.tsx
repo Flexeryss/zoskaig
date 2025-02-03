@@ -1,6 +1,3 @@
-// src/sections/SignUpView.tsx
-
-
 "use client";
 
 import React, { useState } from "react";
@@ -72,7 +69,18 @@ export default function SignUpView() {
             color="primary"
           />
         }
-        label="Súhlasím s podmienkami GDPR"
+        label={
+          <Typography>
+            Súhlasím s{" "}
+            <Link href="/gdpr" style={{ color: "#be03fc", textDecoration: "none" }}>
+              podmienkami GDPR
+            </Link>{" "}
+            a{" "}
+            <Link href="/podmienky" style={{ color: "#be03fc", textDecoration: "none" }}>
+              podmienkami používania
+            </Link>
+          </Typography>
+        }
       />
 
       {/* Error Message for Missing GDPR Agreement */}
@@ -92,63 +100,3 @@ export default function SignUpView() {
     </Container>
   );
 }
-
-
-
-
-
-
-
-      // {/* Facebook Sign Up */}
-      // <Button
-      //   variant="outlined"
-      //   fullWidth
-      //   startIcon={<FacebookIcon />}
-      //   sx={{ mb: 4 }}
-      // >
-      //   Registrovať sa účtom Facebook
-      // </Button>
-
-      // {/* Divider */}
-      // <Divider sx={{ width: "100%", mb: 2 }}>
-      //   <Typography variant="body2">alebo</Typography>
-      // </Divider>
-
-      // {/* Email */}
-      // <TextField
-      //   margin="normal"
-      //   fullWidth
-      //   label="Email"
-      //   type="email"
-      //   variant="outlined"
-      //   required
-      //   defaultValue="your@email.com"
-      // />
-
-      // {/* Password */}
-      // <TextField
-      //   margin="normal"
-      //   fullWidth
-      //   label="Password"
-      //   type="password"
-      //   variant="outlined"
-      //   required
-      //   defaultValue="******"
-      // />
-
-      // {/* Checkbox */}
-      // <FormControlLabel
-      //   control={<Checkbox color="primary" />}
-      //   label="Chcem dostávať novinky na email"
-      //   sx={{ mt: 2 }}
-      // />
-
-      // {/* Sign Up Button */}
-      // <Button
-      //   variant="contained"
-      //   fullWidth
-      //   size="large"
-      //   sx={{ mt: 2, mb: 1 }}
-      // >
-      //   Registrovať
-      // </Button>

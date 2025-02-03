@@ -1,16 +1,9 @@
+// src/app/(public)/gdpr/page.tsx
 
-// src/app/o-mne/page.tsx
+"use client";
 
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-
-export const metadata = { title: 'O mne | ZoskaSnap'}
+import AboutView from "../../../sections/AboutView"; // Import the GDPRView component
 
 export default function About() {
-
-  return(
-    <Container>
-      <Typography> Stranka o mne </Typography>
-    </Container>
-  );
+  return <AboutView />; // Render the GDPRView
 }
