@@ -1,9 +1,11 @@
 //src/app/(private)/prispevok/page.tsx
 
+import PostsView from "@/sections/PostsView";
 
+export const metadata = { title: 'Príspevky | ZoskaSnap' };
 
-import PostsView from "../../../sections/PostsView"; // Import the PostsView component
-
-export default function PostListing() {
-  return <PostsView />; // Render the PostsView component
+async function PostListing() {
+  return <PostsView />;
 }
+
+export default PostListing;

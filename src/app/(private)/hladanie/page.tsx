@@ -1,17 +1,9 @@
-// Vyhladavanie
+// src/app/auth/registracia/page.tsx
 
-// src/app/hladanie/page.tsx
+import SearchView from "@/sections/SearchView";
 
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+export const metadata = { title: "Registrácia užívateľa | ZoškaSnap" };
 
-export const metadata = { title: 'Vyhladavanie | ZoskaSnap'}
-
-export default function Search() {
-
-  return(
-    <Container>
-      <Typography> Vyhladavanie </Typography>
-    </Container>
-  );
+export default function SearchPage() {
+  return <SearchView />;
 }

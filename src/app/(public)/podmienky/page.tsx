@@ -1,16 +1,9 @@
-
 // src/app/podmienky/page.tsx
+"use client";
 
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import TermsView from "@/sections/TermsView";
 
-export const metadata = { title: 'Podmienky | ZoskaSnap'}
 
 export default function TermsConditions() {
-
-  return(
-    <Container>
-      <Typography> Podmienky pouzivania </Typography>
-    </Container>
-  );
+  return <TermsView />;
 }
